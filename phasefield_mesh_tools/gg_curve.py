@@ -272,17 +272,42 @@ def orient_hex(elem: Element, vertices: List[Vertex]) -> None:
 # ------------------------- Connectivity + BC -------------------------
 
 
-def build_face_map(elements: List[Element]) -> Dict[Tuple[int, ...], Tuple[int, int]]:
-    """Map sorted vertex tuple -> (eid,fid) for all element faces."""
-    fmap: Dict[Tuple[int, ...], Tuple[int, int]] = {}
+def build_face_map_multi(elements: List[Element]) -> Dict[Tuple[int, ...], List[Tuple[int, int]]]:
+    """Map sorted vertex tuple -> list of (eid,fid) for all element faces.
+
+    Internal faces will have two entries; boundary faces one.
+    """
+    fmap: Dict[Tuple[int, ...], List[Tuple[int, int]]] = {}
     for eid, el in enumerate(elements):
         if el.etype != 2:
             continue
         for fid, loc in enumerate(HEX_FACES):
             face = tuple(el.verts[i] for i in loc)
             key = tuple(sorted(face))
-            fmap[key] = (eid, fid)
+            fmap.setdefault(key, []).append((eid, fid))
     return fmap
+
+
+def connect_internal(elements: List[Element]) -> None:
+    """Populate conn_element/conn_face for internal connectivity (C++ Mesh::Connect).
+
+    Uses a face hash: for each face key with two owners, connect them.
+    Boundary faces are left as self-connected (will be overwritten by BC assignment).
+    """
+    fmap = build_face_map_multi(elements)
+    for eid, el in enumerate(elements):
+        if el.etype != 2:
+            continue
+        el.conn_element = [eid] * 6
+        el.conn_face = list(range(6))
+
+    for key, owners in fmap.items():
+        if len(owners) == 2:
+            (e0, f0), (e1, f1) = owners
+            elements[e0].conn_element[f0] = e1
+            elements[e0].conn_face[f0] = f1
+            elements[e1].conn_element[f1] = e0
+            elements[e1].conn_face[f1] = f0
 
 
 def set_boundary_conditions(
@@ -292,28 +317,25 @@ def set_boundary_conditions(
     vertices: List[Vertex],
     periodic: Dict[str, float],
 ) -> None:
-    fmap = build_face_map(elements)
+    # First build internal connectivity
+    connect_internal(elements)
 
-    # set default connectivity (neighboring not computed in MVP)
-    for el in elements:
-        if el.etype == 2:
-            el.conn_element = [-999] * 6
-            el.conn_face = [-999] * 6
+    fmap = build_face_map_multi(elements)
 
     # apply boundary faces
     for bf in bfaces:
         key = tuple(sorted(bf.verts))
-        if key not in fmap:
-            # could be tri face or non-hex; skip in MVP
+        owners = fmap.get(key)
+        if not owners:
             continue
-        eid, fid = fmap[key]
+        # pick the first owner (boundary face should only have one)
+        eid, fid = owners[0]
         bc = boundaries[bf.bc_id]
         btype = bc.btype
         if btype not in ("X", "x", "Y", "y", "Z", "z"):
             elements[eid].conn_element[fid] = -(bf.bc_id + 1)
             elements[eid].conn_face[fid] = -(bf.bc_id + 1)
         else:
-            # periodic not implemented in MVP
             raise NotImplementedError("Periodic BCs not implemented in MVP")
 
 
@@ -376,16 +398,17 @@ def dump_walls(
     elements: List[Element],
     out_path: Path,
 ) -> None:
-    fmap = build_face_map(elements)
+    fmap = build_face_map_multi(elements)
     # collect W type faces
     wall_pairs: List[Tuple[int, int]] = []
     for bf in bfaces:
         if boundaries[bf.bc_id].btype != 'W':
             continue
         key = tuple(sorted(bf.verts))
-        if key not in fmap:
+        owners = fmap.get(key)
+        if not owners:
             continue
-        eid, fid = fmap[key]
+        eid, fid = owners[0]
         wall_pairs.append((eid + 1, fid + 1))
 
     with out_path.open('w') as f:
