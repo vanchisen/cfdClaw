@@ -62,6 +62,9 @@ make mopt
 make PARALLEL=1 mopt THERMO=0 NATURAL_CONVECTION=0 SPM=0 XMLRPC=0
 ```
 
+Notes:
+- `THERMO=0` disables building the heat-transfer (energy equation) capability.
+
 ### `SPM_Thermo/Linux.Map/compile` (builds `nektarF` + `flexF` with MAP)
 
 ```bash
