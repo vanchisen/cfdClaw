@@ -34,3 +34,17 @@ This repo ships a packaged OpenClaw skill for Gmsh-based meshing workflows.
 **Notes**
 - Curved‑branch Y‑pipe workflows use an arc‑length relation: `L_arc = Rbend * theta_branch`.
 - For longer branches, update **Rbend** (not just `Lbranch`) to change the true arc length.
+
+## Nektar2.5D VIV (OpenClaw skill)
+This repo also ships an OpenClaw skill for the in-house **Nektar2.5D** VIV workflow.
+
+**What it covers**
+- Compile order for Nektar2.5D components
+- Cylinder-case VIV run workflow (`generateInput.sh`, `runme`, `post.sh`)
+- Practical `cyl.rea` parameter editing guidance
+- Forced vs free VIV setup hints
+- Runtime checks and common startup failure patterns
+
+**Skill artifacts**
+- `skills/nektar2p5d-viv/`
+- `skills/nektar2p5d-viv.skill`
