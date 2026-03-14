@@ -87,6 +87,29 @@ From `SPM_Thermo/src/map.C` (`writedog2`):
 - If `D_SCR` is enabled (14 cols):
   inserts `old_static_map` after `dx`.
 
+### `post.sh` / `ZeroPlaneF` note on CCV
+- `ZeroPlaneF` in this workflow expects **`-m`** (lowercase) for map file.
+- If `post.sh` uses `-M` (uppercase), conversion can fail with:
+  - `nek2tec: unknown option -- M`
+- Also load runtime env before conversion:
+  - `source ~/modules_2026`
+
+Working conversion form:
+
+```bash
+../Utilities/Linux/ZeroPlaneF -r cyl.rea -m cyl_1.map cyl_1.chk -o cyl_1.dat
+```
+
+Latest-file conversion pattern:
+
+```bash
+source ~/modules_2026
+chk=$(ls -1t cyl*.chk | head -n1)
+map=$(ls -1t cyl*.map | head -n1)
+out=${chk%.chk}.dat
+../Utilities/Linux/ZeroPlaneF -r cyl.rea -m "$map" "$chk" -o "$out"
+```
+
 **Skill artifacts**
 - `skills/nektar2p5d-viv/`
 - `skills/nektar2p5d-viv.skill`

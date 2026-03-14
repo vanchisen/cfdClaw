@@ -43,6 +43,29 @@ In `Example(s)/Cylinder/`:
 2. `source runme`
 3. `source post.sh`
 
+### CCV `post.sh` note (important)
+
+On this branch/cluster, `ZeroPlaneF` expects lowercase `-m` for map input.
+If `post.sh` uses uppercase `-M`, it can fail with:
+- `nek2tec: unknown option -- M`
+
+Working conversion pattern:
+
+```bash
+source ~/modules_2026
+../Utilities/Linux/ZeroPlaneF -r cyl.rea -m cyl_0.map cyl_0.chk -o cyl_0.dat
+```
+
+To convert the latest files automatically:
+
+```bash
+source ~/modules_2026
+chk=$(ls -1t cyl*.chk | head -n1)
+map=$(ls -1t cyl*.map | head -n1)
+out=${chk%.chk}.dat
+../Utilities/Linux/ZeroPlaneF -r cyl.rea -m "$map" "$chk" -o "$out"
+```
+
 ## Parameter editing rules
 
 - Treat `FORCX` and `FORCY` as primary VIV mode selectors in this branch.
