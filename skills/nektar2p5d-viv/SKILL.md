@@ -87,6 +87,19 @@ Count rule used in this workflow:
 
 For parameter meaning details, read `references/map-rea-parameter-guide.md`.
 
+### `.rea` line-count checker (use before launch)
+
+Use the bundled checker to catch block-count mistakes (e.g., in PARAMETERS, DRIVE FORCE, INITIAL CONDITIONS related count lines):
+
+```bash
+python3 scripts/check_rea_counts.py cyl.rea
+```
+
+Why this matters:
+- Nektar2.5D parses many sections using explicit "N lines follow" counts.
+- If the count is wrong, subsequent blocks can be mis-read silently or fail at runtime.
+- Common offender: changing `FFX/FFY/FFZ` or IC text without keeping the corresponding count line consistent.
+
 ## Reliability checks after launch
 
 - Check `out` for:
