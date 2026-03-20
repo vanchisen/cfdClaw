@@ -129,6 +129,20 @@ This repo now includes an OpenClaw skill for compiling and running **Galaexi** o
 - `skills/galaexi-ccv/`
 - `skills/dist/galaexi-ccv.skill`
 
+## nekRS on CCV (OpenClaw skill)
+This repo now includes an OpenClaw skill for compiling and running **nekRS** on Brown CCV/Oscar.
+
+**What it covers**
+- NVHPC + HPCX + CUDA module setup
+- Configure/build via `build.sh` + `make`
+- Run-folder staging for case files (`.re2`, `.par`, UDF/USR/OUDf)
+- Job submission with `sbatch runme.nekRS`
+- Runtime smoke-check and quick diagnostics (`squeue`, `gpu.out`, `gpu.err`)
+
+**Skill artifacts**
+- `skills/nekrs-ccv/`
+- `skills/dist/nekrs-ccv.skill`
+
 ## FLEXI 3D -> 2D(one-layer-z) restart interpolation note
 
 When generating an initial condition for a 2D-like case whose mesh is still 3D with one z-layer (e.g., `z=const`), use **`posti_swapmesh`** instead of copying/slicing `DG_Solution` directly.
