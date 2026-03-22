@@ -143,6 +143,20 @@ This repo now includes an OpenClaw skill for compiling and running **nekRS** on 
 - `skills/nekrs-ccv/`
 - `skills/dist/nekrs-ccv.skill`
 
+## nekRS on CCV Multi-GPU (OpenClaw skill)
+This repo also ships an OpenClaw skill for compiling and running **nekRS** on Brown CCV (Oscar), with multi-GPU Slurm workflows.
+
+**What it covers**
+- Compile environment and toolchain sequence from `nekRS-23.avm/ReadMe.txt`
+- Robust Slurm script pattern for `N` MPI ranks on `N` GPUs
+- Case-local cache handling (`NEKRS_CACHE_DIR`, `OCCA_CACHE_DIR`)
+- Stability fix for this CCV stack: `NEKRS_GPU_MPI=0`
+- Troubleshooting bus errors around `oogs::setup`/`PMPI_Waitall`
+
+**Skill artifacts**
+- `skills/nekrs-ccv-multigpu/`
+- `skills/nekrs-ccv-multigpu.skill`
+
 ## FLEXI 3D -> 2D(one-layer-z) restart interpolation note
 
 When generating an initial condition for a 2D-like case whose mesh is still 3D with one z-layer (e.g., `z=const`), use **`posti_swapmesh`** instead of copying/slicing `DG_Solution` directly.
