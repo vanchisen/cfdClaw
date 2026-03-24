@@ -40,6 +40,26 @@ description: Gmsh-based meshing workflows for CFD. Use for creating/refining 2D/
   **paired side midpoints must satisfy `x_left + x_right = 0` and `y_left = y_right`**.
 - For the normalized case, scale the periodic side height to `1.0` and keep periodic sides symmetric in `x`.
 
+### E) Partition extruded 3D mesh by 2D (x,z) plane only
+Use this when a 3D mesh is extruded in `y` and you want each `(x,z)` column to stay on one rank.
+
+1) Partition the 2D mesh first:
+- `gmsh muri_fluid_2D.msh -part 120 -format msh2 -save_all -o muri_fluid_2D.msh`
+
+2) Map 2D partition ids to 3D hexes using `(x,z)` centroids:
+- Script example: `genPartitions.py`
+- Input: partitioned 2D `.msh` + 3D `.msh`
+- Output: one-part-per-hex file, e.g. `muri_tem.part.120`
+
+3) Indexing:
+- Keep solver-required indexing explicit (0-based or 1-based).
+- If needed, generate a separate 1-based file (e.g. `muri_tem_1based.part.120`) and keep original unchanged.
+
+4) Validation checks:
+- 2D partition count matches requested `Npart`.
+- 3D mapped hex count equals total hex elements.
+- Unmatched centroid map count is zero.
+
 ## References
 - `references/gmsh-basics.md`
 - `references/size-fields.md`
