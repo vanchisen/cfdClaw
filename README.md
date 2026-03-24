@@ -129,6 +129,9 @@ This repo now includes an OpenClaw skill for compiling and running **Galaexi** o
 - `skills/galaexi-ccv/`
 - `skills/dist/galaexi-ccv.skill`
 
+**Detailed runbook (MPI toolchain + `mpirun -np 6`)**
+- `docs/galaexi_ccv_mpi_notes.md`
+
 ## nekRS on CCV (OpenClaw skill)
 This repo now includes an OpenClaw skill for compiling and running **nekRS** on Brown CCV/Oscar.
 
