@@ -160,6 +160,21 @@ This repo also ships an OpenClaw skill for compiling and running **nekRS** on Br
 - `skills/nekrs-ccv-multigpu/`
 - `skills/nekrs-ccv-multigpu.skill`
 
+## Phase-field boiling input generation (OpenClaw skill)
+This repo now includes an OpenClaw skill for **NonCHT phase-field flow-boiling input generation**.
+
+**What it covers**
+- Case setup workflow from experimental flag -> simulation inputs
+- Nondimensional parameter calculation (`Dimen_Chan3D.py`)
+- Mesh conversion `*.msh -> *.grd` (`gmsh2grd.py`)
+- REA section generation for mesh/flow/phase/temperature BC blocks
+- Pure-Python C++ ports for section generation (`gg_curve_pure.py`, `gg_boundary_pure.py`)
+- Final REA assembly workflow for `case*_all.rea`
+
+**Skill artifacts**
+- `skills/phasefield-boiling-input/`
+- `skills/dist/phasefield-boiling-input.skill`
+
 ## FLEXI 3D -> 2D(one-layer-z) restart interpolation note
 
 When generating an initial condition for a 2D-like case whose mesh is still 3D with one z-layer (e.g., `z=const`), use **`posti_swapmesh`** instead of copying/slicing `DG_Solution` directly.
