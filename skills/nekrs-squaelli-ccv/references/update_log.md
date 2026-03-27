@@ -1,0 +1,1 @@
+- 2026-03-26: stability recipe confirmed (timeStepper=tombo2, dt targetCFL=1.2, regularization hpfrt)
