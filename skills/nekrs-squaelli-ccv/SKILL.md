@@ -14,8 +14,14 @@ description: Set up and stabilize nekRS SquaElli cases on CCV. Use for generatin
 ## Stable run parameters (key takeaways)
 For stability (empirically validated in Y20):
 ```
-dt = targetCFL=1.2 + max=2e-3 + initial = 1e-3
-regularization = hpfrt + nModes=1 + scalingCoeff=10
+# time step method
+ timeStepper = tombo2
+
+# time step control
+ dt = targetCFL=1.2 + max=2e-3 + initial = 1e-3
+
+# stabilization
+ regularization = hpfrt + nModes=1 + scalingCoeff=10
 ```
 Apply these to `cyl.par` for cases that blow up, then resubmit.
 
