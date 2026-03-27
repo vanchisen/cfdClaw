@@ -175,6 +175,18 @@ This repo now includes an OpenClaw skill for **NonCHT phase-field flow-boiling i
 - `skills/phasefield-boiling-input/`
 - `skills/dist/phasefield-boiling-input.skill`
 
+## Wake stability analysis (Triantafyllou-style) (OpenClaw skill)
+This repo now includes an OpenClaw skill for **Rayleigh + Briggs–Bers pinch-point wake stability analysis** following Triantafyllou et al. (1986).
+
+**What it covers**
+- Re=140k verification against Triantafyllou’s fitted profiles (x/d=1,2)
+- Briggs–Bers pinch-point scan over x to locate the most unstable wake profile
+- Sanity filtering for spurious branches (|Im(ω*)| < 1)
+- Extracting the most-unstable U(y) profile from Re11K_DNS.dat
+
+**Skill artifacts**
+- `skills/wake-stability-analysis/`
+
 ## FLEXI 3D -> 2D(one-layer-z) restart interpolation note
 
 When generating an initial condition for a 2D-like case whose mesh is still 3D with one z-layer (e.g., `z=const`), use **`posti_swapmesh`** instead of copying/slicing `DG_Solution` directly.
