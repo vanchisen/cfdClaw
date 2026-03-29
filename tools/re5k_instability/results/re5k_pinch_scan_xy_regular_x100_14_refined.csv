@@ -1,0 +1,10 @@
+x_mean,Im_omega_star,Ny,alpha_star,omega_star,classification,note
+1.0,0.5932747487024655,501,+2.02632039e+00-1.12675131e+01j,+2.76617466e-01+5.93274749e-01j,absolute,success=True fnorm=3.26e-11 The solution converged.
+1.0499999999999998,0.5366090594313649,501,+1.49880722e+00-8.83077349e+00j,+1.16440029e-01+5.36609059e-01j,absolute,success=True fnorm=1.12e-11 The solution converged.
+1.0999999999999999,1.7037122852515416,501,+1.13402808e+00-5.61368122e+00j,+2.93103428e-01+1.70371229e+00j,absolute,success=True fnorm=8.88e-12 The solution converged.
+1.15,2.0112375872282713,501,+1.06666252e+00-5.65542563e+00j,+3.93068444e-01+2.01123759e+00j,absolute,success=True fnorm=5.44e-12 The solution converged.
+1.2,0.6967629592866511,501,+1.68199225e-01-4.09785218e+00j,+1.06802973e-02+6.96762959e-01j,absolute,success=True fnorm=3.94e-12 The solution converged.
+1.25,0.44199953247256174,501,-1.07287315e+00-1.58145885e+01j,+1.37233727e-01+4.41999532e-01j,absolute,success=True fnorm=3.86e-11 The solution converged.
+1.3,0.3818767608461593,501,+1.67509555e+00-1.00824967e+00j,+1.33262840e+00+3.81876761e-01j,absolute,success=True fnorm=2.84e-12 The solution converged.
+1.3499999999999999,0.4148368551751505,501,+1.79072740e+00-9.72926974e-01j,+1.30719989e+00+4.14836855e-01j,absolute,"success=False fnorm=7.90e-12 The iteration is not making good progress, as measured by the   improvement from the last ten iterations."
+1.4,0.4283096439502268,501,+1.87270724e+00-9.60802774e-01j,+1.29091764e+00+4.28309644e-01j,absolute,success=True fnorm=7.45e-13 The solution converged.
