@@ -146,7 +146,7 @@ RefState          = (/1.,1.0,0.,0.,0.079365079365/)
 Thanks to:
 
 - Saluja, Singh (`prabhjyot_saluja@brown.edu`)
-- Saluja, Singh (`khemraj_shukla@brown.edu`)
+- Shukla, Khemraj (`khemraj_shukla@brown.edu`)
 
 Use concise wording such as:
 
