@@ -6,7 +6,9 @@ Use this reference when the task involves Apptainer/NVHPC container runs, multi-
 
 - `/users/zwang197/scratch/zwang/Re30K_Ma2.0_M8`
 
-## Known working container batch pattern
+## Known working container batch patterns
+
+### Simple in-container `mpirun`
 
 ```bash
 #!/bin/bash
@@ -28,6 +30,14 @@ cd /path/to/case
 ```
 
 This launch pattern demonstrated that Galaexi can start inside the container and reach multi-GPU runtime, though the run may still fail later because of memory or numerics.
+
+### Recommended 3-GPU UUID-pinned in-container `mpirun`
+
+Use the bundled reference script:
+
+- `references/runme.container_mpirun_uuid_3gpu.sbatch`
+
+This version keeps `mpirun` inside the container, but assigns one GPU UUID per local MPI rank via `OMPI_COMM_WORLD_LOCAL_RANK` and `CUDA_VISIBLE_DEVICES`. It avoids the direct-`srun` MPI-init failure while still pinning ranks explicitly to GPUs.
 
 ## Stronger per-rank GPU binding
 

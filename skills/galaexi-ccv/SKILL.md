@@ -72,6 +72,10 @@ scancel <JOBID>
 
 When the user is running inside an Apptainer/NVHPC container or trying to prove that Galaexi can run on multiple GPUs, read `references/container-multigpu.md`.
 
+For the current recommended 3-GPU CCV container launcher, use:
+
+- `references/runme.container_mpirun_uuid_3gpu.sbatch`
+
 Key takeaways from the validated CCV case:
 
 - A 2-rank / 2-GPU containerized launch can reach initialization and time stepping on CCV.
