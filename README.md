@@ -118,6 +118,13 @@ out=${chk%.chk}.dat
 ## Galaexi on CCV (OpenClaw skill)
 This repo now includes an OpenClaw skill for compiling and running **Galaexi** on Brown CCV/Oscar.
 
+### HDF5 restart smoothing fallback for initial conditions
+When a proper modal restart filter is unavailable or failing, there is now a documented fallback for generating a gentler initial condition from a FLEXI/Galaexi restart file while preserving required HDF5 metadata.
+
+Files:
+- `docs/flexi_h5_restart_smoothing.md`
+- `scripts/h5_smooth_inplace_ic.py`
+
 **What it covers**
 - NVHPC + HPCX module setup on CCV
 - Configure/build workflow (`cmake_nvhpc.sh` and MPI variant usage)
